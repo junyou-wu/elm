@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper.OrdersMapper">
+    <resultMap id="ordersMap" type="pojo.Orders">
+        <id column="orderId" property="orderId"/>
+        <result column="userId" property="userId"/>
+        <result column="businessId" property="businessId"/>
+        <result column="orderDate" property="orderDate"/>
+        <result column="orderTotal" property="orderTotal"/>
+        <result column="daId" property="daId"/>
+        <result column="orderState" property="orderState"/>
+    </resultMap>
+
+    <resultMap id="ordersDetailetMap" type="pojo.OrderDetailet">
+        <id column="odId" property="odId"/>
+        <result column="orderId" property="orderId"/>
+        <result column="foodId" property="foodId"/>
+        <result column="quantity" property="quantity"/>
+    </resultMap>
+
+    <select id="getOrdersById" parameterType="Integer" resultMap="ordersMap">
+        select * from orders where orderId=#{orderId}
+    </select>
+
+    <select id="listOrdersByUserId" parameterType="String" resultMap="ordersMap">
+        select * from orders where userId=#{userId}
+    </select>
+
+    <select id="selectOrdersMaxId" resultType="int">
+        select MAX(orderId) from orders
+    </select>
+
+    <insert id="createOrders">
+        insert into orders(orderId,userId,businessId,orderDate,orderTotal,daId,orderState)values (#{orderId},#{userId},#{businessId},#{orderDate},#{orderTotal},#{daId},0)
+    </insert>
+
+    <select id="selectOrderDetailetMaxId" resultType="int">
+        select MAX(odId) from orderdetailet
+    </select>
+
+    <insert id="saveOrderDetailet">
+        insert into orderdetailet(odId,orderId,foodId,quantity) values(#{odId},#{orderId},#{foodId},#{quantity})
+    </insert>
+
+    <select id="listOrdersDetailetByOrderId" parameterType="Integer" resultMap="ordersDetailetMap">
+        select * from orderdetailet where orderId=#{orderId}
+    </select>
+</mapper>

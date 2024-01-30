@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper.DeliveryAddressMapper">
+    <resultMap id="DeliveryAddressMap" type="pojo.DeliveryAddress">
+        <id column="daId" property="daId"/>
+        <result column="contactName" property="contactName"/>
+        <result column="contactSex" property="contactSex"/>
+        <result column="contactTel" property="contactTel"/>
+        <result column="address" property="address"/>
+        <result column="userId" property="userId"/>
+    </resultMap>
+
+    <select id="listDeliveryAddressByUserId" parameterType="String" resultMap="DeliveryAddressMap">
+        select * from deliveryaddress where userId=#{userId}
+    </select>
+
+    <select id="selectMaxId" resultType="int">
+        select MAX(daId) from deliveryaddress
+    </select>
+
+    <select id="getDeliveryAddressById" resultMap="DeliveryAddressMap">
+        select * from deliveryaddress where daId = #{daId}
+    </select>
+
+    <insert id="saveDeliveryAddress">
+        insert into deliveryaddress(daId,userId,contactName,contactSex,contactTel,address) values (#{daId},#{userId},#{contactName},#{contactSex},#{contactTel},#{address})
+    </insert>
+
+    <update id="updateDeliveryAddress">
+        update deliveryaddress set daId=#{daId}, contactName=#{contactName},contactSex=#{contactSex},contactTel=#{contactTel},address=#{address} where daId=#{daId}
+    </update>
+
+    <delete id="removeDeliveryAddress">
+        delete from deliveryaddress where daId=#{daId}
+    </delete>
+
+</mapper>

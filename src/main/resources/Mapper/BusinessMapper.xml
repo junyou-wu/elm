@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper.BusinessMapper">
+    <resultMap id="businessMap" type="pojo.Business">
+        <id column="businessId" property="businessId"/>
+        <result column="businessName" property="businessName"/>
+        <result column="businessAddress" property="businessAddress"/>
+        <result column="businessExplain" property="businessExplain"/>
+        <result column="businessImg" property="businessImg"/>
+        <result column="orderTypeId" property="orderTypeId"/>
+        <result column="starPrice" property="starPrice"/>
+        <result column="deliveryPrice" property="deliveryPrice"/>
+        <result column="remarks" property="remarks"/>
+    </resultMap>
+
+    <select id="listBusinessByOrderTypeId" parameterType="Integer" resultMap="businessMap">
+        select * from business where orderTypeId=#{orderTypeId}
+    </select>
+
+    <select id="getBusinessById" parameterType="Integer" resultMap="businessMap">
+        select * from business where businessId=#{businessId}
+    </select>
+</mapper>

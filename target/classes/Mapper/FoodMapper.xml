@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper.FoodMapper">
+    <resultMap id="foodMap" type="pojo.Food">
+        <id column="foodId" property="foodId"/>
+        <result column="foodName" property="foodName"/>
+        <result column="foodExplain" property="foodExplain"/>
+        <result column="foodImg" property="foodImg"/>
+        <result column="foodPrice" property="foodPrice"/>
+        <result column="businessId" property="businessId"/>
+        <result column="remarks" property="remarks"/>
+    </resultMap>
+
+    <select id="listFoodByBusinessId" parameterType="Integer" resultMap="foodMap">
+        select * from food where businessId=#{businessId}
+    </select>
+
+    <select id="getFoodByFoodId" parameterType="Integer" resultMap="foodMap">
+        select * from food where foodId = #{foodId}
+    </select>
+</mapper>

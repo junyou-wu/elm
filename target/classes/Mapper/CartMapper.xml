@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper.CartMapper">
+    <resultMap id="CartMap" type="pojo.Cart">
+        <id column="cartId" property="cartId"/>
+        <result column="foodId" property="foodId"/>
+        <result column="businessId" property="businessId"/>
+        <result column="userId" property="userId"/>
+        <result column="quantity" property="quantity"/>
+    </resultMap>
+
+    <select id="listCart" parameterType="String" resultMap="CartMap">
+        select * from cart  where userId=#{userId}
+    </select>
+    
+    <select id="selectMaxId" resultType="int">
+        select MAX(cartId) from cart
+    </select>
+
+    <select id="getCartId" resultMap="CartMap">
+        select * from cart where businessId=#{businessId} and userId=#{userId} and foodId=#{foodId}
+    </select>
+
+    <insert id="saveCart">
+        insert into cart(cartId,foodId,businessId,userId,quantity) values(#{cartId},#{foodId},#{businessId},#{userId},1)
+    </insert>
+
+    <update id="updateCart">
+        update cart set businessId=#{businessId}, userId=#{userId},foodId=#{foodId},quantity=#{quantity} where businessId=#{businessId} and userId=#{userId} and foodId=#{foodId}
+    </update>
+
+    <delete id="removeCart">
+        delete from cart where businessId=#{businessId} and userId=#{userId} and foodId=#{foodId}
+    </delete>
+
+    <select id="listCartByBusinessId" parameterType="Integer" resultMap="CartMap">
+        select * from cart  where businessId=#{businessId}
+    </select>
+</mapper>
